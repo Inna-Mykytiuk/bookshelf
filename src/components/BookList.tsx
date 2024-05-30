@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Book {
   id: number;
@@ -20,7 +21,7 @@ interface BooksState {
   error: string;
 }
 
-const Books: React.FC = () => {
+const BooksList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState("");
 
@@ -70,6 +71,7 @@ const Books: React.FC = () => {
               width={360}
               className="h-[600px] aspect-video w-[400px] object-cover "
             />
+            <Link href={`/book/${book.id}`}>View Details</Link>
           </li>
         ))}
       </ul>
@@ -77,4 +79,4 @@ const Books: React.FC = () => {
   );
 };
 
-export default Books;
+export default BooksList;
