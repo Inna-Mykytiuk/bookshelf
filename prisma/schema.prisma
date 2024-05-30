@@ -11,7 +11,7 @@ model Book {
   id         String    @id @map("_id") @default(auto()) @db.ObjectId
   title       String
   author      String
-  price       Int?
+  price       String?
   description String?
   category    String?
   status      String?
