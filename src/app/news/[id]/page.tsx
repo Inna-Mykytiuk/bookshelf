@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         ))
       ) : (
         <li className="bg-slate-500">
-          <p>Рев&aposю до книги ще немає.</p>
+          <p>Рев&apos;ю до книги ще немає.</p>
         </li>
       )}
     </ul>
