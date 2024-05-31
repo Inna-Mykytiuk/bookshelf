@@ -1,50 +1,22 @@
-'use client'
+import React from 'react';
+import Image from 'next/image';
+import { Book } from '@/types/types';
 
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import axios from 'axios'
-import Image from 'next/image'
+interface NewsItemProps {
+  book: Book;
+}
 
-const NewsItem: React.FC = () => {
-  const router = useRouter()
-  const { id } = router.query
-  const [book, setBook] = useState<any>(null)
-  const [loading, setLoading] = useState<boolean>(false)
-
-  useEffect(() => {
-    const fetchBook = async () => {
-      if (id) {
-        try {
-          setLoading(true)
-          const response = await axios.get(`https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=8N1AbWqRpnQWeV5VdRc9LcAyq1NAOG3p`)
-          const book = response.data.results.books.find((b: any) => b.primary_isbn13 === id)
-          setBook(book)
-          setLoading(false)
-        } catch (error) {
-          console.error('Error fetching data:', error)
-          setLoading(false)
-        }
-      }
-    }
-    fetchBook()
-  }, [id])
-
-  if (loading) {
-    return <p>Loading...</p>
-  }
-
-  if (!book) {
-    return <p>Book not found</p>
-  }
+const NewsItem: React.FC<NewsItemProps> = ({ book }) => {
 
   return (
     <div>
-      <h1>{book.title}</h1>
+      <h3>{book.title}</h3>
       <p>{book.description}</p>
       <p>Author: {book.author}</p>
-      {book.book_image && <Image src={book.book_image} width={300} height={450} alt={`${book.title} cover`} />}
+      {book.book_image && <Image src={book.book_image} width={150} height={225} alt={`${book.title} cover`} />}
     </div>
-  )
-}
 
-export default NewsItem
+  );
+};
+
+export default NewsItem;
