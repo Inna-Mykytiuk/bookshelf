@@ -1,16 +1,25 @@
-import React from 'react'
-import News from '@/components/News'
-import Link from 'next/link'
 
-const NewsSection: React.FC = () => {
-  return (
-    <div>
-      <News showLoadMore={false} />
-      <Link href="/news">
-        Read all articles
-      </Link>
-    </div>
-  )
+import Link from 'next/link'
+import React from "react";
+import News from "@/components/News";
+import { getBooks } from "@/utils/fetchingData";
+
+interface NewsSectionProps {
+  showLoadMore: boolean;
+  showReadAllLink: boolean;
 }
 
-export default NewsSection
+export default async function NewsSection({ showLoadMore, showReadAllLink }: NewsSectionProps) {
+  const data = await getBooks();
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <News data={data.results.books} showLoadMore={showLoadMore} />
+      {showReadAllLink && (
+        <Link href="/news">
+          Read all articles
+        </Link>
+      )}
+    </main>
+  );
+}
