@@ -1,12 +1,13 @@
-import React from 'react'
-import News from '@/components/News'
+import React from "react";
+import News from "@/components/News";
+import { getBooks } from "@/utils/fetchingData";
 
-const NewsPage: React.FC = () => {
+export default async function Page() {
+  const data = await getBooks();
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <News showLoadMore={true} />
+      <News data={data.results.books} showLoadMore={true} />
     </main>
-  )
+  );
 }
-
-export default NewsPage
