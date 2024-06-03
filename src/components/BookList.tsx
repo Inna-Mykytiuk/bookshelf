@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,48 +14,16 @@ interface Book {
   img: string;
 }
 
-// Типи для стану компонента
-interface BooksState {
-  books: Book[];
-  error: string;
+interface BookProps {
+  data: Book[];
 }
 
-const BooksList: React.FC = () => {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const response = await fetch("/api/books", {
-          method: "GET",
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        setBooks(data);
-      } catch (error: any) {
-        setError(error.message);
-        console.error("Error fetching books:", error);
-      }
-    };
-
-    fetchBooks();
-  }, []);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  console.log(books);
+const BooksList: React.FC<BookProps> = ({ data }) => {
   return (
     <div>
       <h1>Books</h1>
       <ul>
-        {books.map((book) => (
+        {data.map((book) => (
           <li key={book.id}>
             <h2>{book.title}</h2>
             <p>{book.author}</p>

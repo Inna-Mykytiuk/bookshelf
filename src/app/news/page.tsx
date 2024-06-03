@@ -1,9 +1,9 @@
 import React from "react";
 import News from "@/components/News";
-import { getBooks } from "@/utils/fetchingData";
+import { getNewsBooks } from "@/utils/fetchingData";
 
 export default async function Page() {
-  const data = await getBooks();
+  const data = await getNewsBooks();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

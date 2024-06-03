@@ -10,8 +10,26 @@ export const getReview = async (author: string) => {
   return parsed;
 };
 
-export const getBooks = async () => {
+export const getNewsBooks = async () => {
   const data = await fetch(`${HTTPURL_BOOKS}=${API_KEY}`);
   const parsed = data.json();
   return parsed;
+};
+
+export const fetchBooks = async () => {
+  try {
+    const response = await fetch("http://localhost:3000/api/books", {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching books:", error);
+    throw error;
+  }
 };
